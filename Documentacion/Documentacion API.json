@@ -1,0 +1,232 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API encargada de mostrar la información correspondiente a los vehiculos registrados: Cantidad - Valor Tabulado y Reporte.",
+    "version": "1.0.0",
+    "title": "API - F2X: Vehiculos",
+    "contact": {
+      "email": "juliandavidlopez1992@gmail.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "F2X",
+      "description": "Información vehículos."
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/F2X/GetInfoVehiculos": {
+      "get": {
+        "tags": [
+          "F2X"
+        ],
+        "summary": "Información de cada estación",
+        "description": "Muestra la información correspondiente a las estaciones: fecha, cantidad de vehiculos y valor tabulado",
+        "operationId": "findPetsByStatus",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/InfoVehiculos"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/F2X/GetConteoVehiculos": {
+      "get": {
+        "tags": [
+          "F2X"
+        ],
+        "summary": "Conteo por estación.",
+        "description": "Muestra la cantidad de vehiculos de cada estación.",
+        "operationId": "uploadFile",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ConteoVehiculos"
+            }
+          }
+        }
+      }
+    },
+    "/F2X/GetRecaudoVehiculos": {
+      "get": {
+        "tags": [
+          "F2X"
+        ],
+        "summary": "Recaudo por estación.",
+        "description": "Muestra el valor tabulado de cada estación.",
+        "operationId": "uploadFile1",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RecaudoVehiculos"
+            }
+          }
+        }
+      }
+    },
+    "/F2X/GetReporteVehiculos": {
+      "get": {
+        "tags": [
+          "F2X"
+        ],
+        "summary": "Reporte tabulado por estación.",
+        "description": "Muestra la información de la cantidad de vehiculos y total tabulado en cada fecha por cada estación.",
+        "operationId": "uploadFile2",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ReporteVehiculos"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "InfoVehiculos": {
+      "type": "object",
+      "properties": {
+        "estacion": {
+          "type": "string"
+        },
+        "sentido": {
+          "type": "string"
+        },
+        "hora": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "categoria": {
+          "type": "string"
+        },
+        "cantidad": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "valorTabulado": {
+          "type": "number"
+        },
+        "fecha": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "ConteoVehiculos": {
+      "type": "object",
+      "properties": {
+        "estacion": {
+          "type": "string"
+        },
+        "sentido": {
+          "type": "string"
+        },
+        "hora": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "categoria": {
+          "type": "string"
+        },
+        "cantidad": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fecha": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "RecaudoVehiculos": {
+      "type": "object",
+      "properties": {
+        "estacion": {
+          "type": "string"
+        },
+        "sentido": {
+          "type": "string"
+        },
+        "hora": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "categoria": {
+          "type": "string"
+        },
+        "valorTabulado": {
+          "type": "number"
+        },
+        "fecha": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "ReporteVehiculos": {
+      "type": "object",
+      "properties": {
+        "estacion": {
+          "type": "string"
+        },
+        "fecha": {
+          "type": "string"
+        },
+        "cantidadTotal": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "recaudadoTotal": {
+          "type": "number"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Repositorio",
+    "url": "http://swagger.io"
+  }
+}
