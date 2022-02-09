@@ -55,15 +55,36 @@ namespace Logica
             return listConteoVehiculo;
         }
 
-        public List<Entidades.ReporteVehiculos> GetListReporteVehiculo()
+        public List<Entidades.EstacionPonderada> GetListReporteVehiculo()
         {
             JLopezContext dbContext = new JLopezContext();
 
-            var listReporteVehiculosVar = dbContext.Vehiculos.GroupBy(f => new { f.Estacion, f.Fecha }).Select(group => new { fee = group.Key, cantidadTotal = group.Sum(f => f.Cantidad), valorTotal = group.Sum(f => f.ValorTabulado) }).OrderBy(o => o.fee.Fecha).ToList();
-
             List<Entidades.ReporteVehiculos> listReporteVehiculos = dbContext.Vehiculos.GroupBy(f => new { f.Estacion, f.Fecha }).Select(group => new Entidades.ReporteVehiculos { estacion = group.Key.Estacion, fecha = group.Key.Fecha, cantidadTotal = (int)group.Sum(f => f.Cantidad), recaudadoTotal = (decimal)group.Sum(f => f.ValorTabulado) }).OrderBy(o => o.fecha).ToList();
 
-            return listReporteVehiculos;
+            var listReporteVehiculosGrouping = listReporteVehiculos.GroupBy(g => g.estacion);
+
+            List<Entidades.EstacionPonderada> estacionPonderada = new List<Entidades.EstacionPonderada>();
+
+            foreach (var item in listReporteVehiculosGrouping)
+            {
+                Entidades.EstacionPonderada estacionPond = new Entidades.EstacionPonderada();
+                estacionPond.estacion = item.Key;
+                estacionPond.informacionEstacion = new List<Entidades.DatosEstacion>();
+                foreach (var i in item)
+                {
+                    estacionPond.informacionEstacion.Add(new Entidades.DatosEstacion
+                    {
+                        fecha = (DateTime)i.fecha,
+                        cantidadTotal = (int)i.cantidadTotal,
+                        recaudoTotal = i.recaudadoTotal
+                    });
+                }
+
+                estacionPonderada.Add(estacionPond);
+            }
+
+
+            return estacionPonderada;
         }
 
     }

@@ -13,7 +13,6 @@ namespace F2X_API.Controllers
     public class F2XController : ControllerBase
     {
 
-
         /// <summary>
         /// Muestra la información sobre los vehiculos registrados
         /// </summary>
@@ -90,8 +89,9 @@ namespace F2X_API.Controllers
         public IActionResult GetReporteVehiculos()
         {
             VehiculosF2X vehiculosF2X = new VehiculosF2X();
+            //List<ReporteVehiculos> listoReporteVehiculos = vehiculosF2X.GetListReporteVehiculo();
+            List<EstacionPonderada> listoReporteVehiculos = vehiculosF2X.GetListReporteVehiculo();
 
-            List<ReporteVehiculos> listoReporteVehiculos = vehiculosF2X.GetListReporteVehiculo();
 
             if (listoReporteVehiculos != null)
             {
@@ -102,5 +102,6 @@ namespace F2X_API.Controllers
                 return NotFound();
             }
         }
+
     }
 }
